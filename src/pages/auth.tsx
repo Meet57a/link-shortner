@@ -18,6 +18,7 @@ import { AppDispatch, RootState } from "@/providers/store";
 import { useDispatch, useSelector } from "react-redux";
 import { login, signup } from "@/services/auth-services";
 import { useToast } from "@/hooks/use-toast";
+import { fetchLikes } from "@/services/fetch-service";
 
 const formSchema = z.object({
   name: z.string().min(3).max(50),
@@ -64,8 +65,6 @@ const AuthPage = () => {
   };
 
   useEffect(() => {
-   
-
     (async () => {
       if (data != null) {
         if (data.statusCode === 200) {
@@ -73,6 +72,7 @@ const AuthPage = () => {
             title: "Success",
             description: data.msg,
           });
+          dispatch(fetchLikes());
         } else {
           toast({
             title: "Error",
@@ -87,8 +87,8 @@ const AuthPage = () => {
   return (
     <Dialog>
       {/*  DialogTrigger */}
-      <DialogTrigger>
-        <Button variant="outline">Login / Signup</Button>
+      <DialogTrigger className="border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 rounded-md px-8 rounded-md">
+        Login / Signup
       </DialogTrigger>
 
       {/* DialogContent */}

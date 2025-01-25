@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import AuthPage from "@/pages/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/providers/store";
-import { logout } from "@/services/auth-services";
-import { useEffect } from "react";
+import { likeService, logout } from "@/services/auth-services";
+import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { fetchLikes } from "@/services/fetch-service";
 
 const Header = () => {
   const { toast } = useToast();
@@ -16,13 +17,17 @@ const Header = () => {
   const user = useSelector(
     (state: RootState) => state.auth.user?.isAuthenticated
   );
-
-  const data = useSelector((state: RootState) => state.auth.data);
+  var likes = useSelector((state: RootState) => state.fetch.likes);
+  var data = useSelector((state: RootState) => state.auth.data);
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const dispatch = useDispatch<AppDispatch>();
 
   const onLogout = () => {
     dispatch(logout());
+  };
+
+  const onLike = () => {
+    dispatch(likeService());
   };
 
   useEffect(() => {
@@ -33,6 +38,7 @@ const Header = () => {
             title: "Success",
             description: data.msg,
           });
+          dispatch(fetchLikes());
         } else {
           toast({
             title: "Error",
@@ -52,7 +58,7 @@ const Header = () => {
         </Link>
         {!user ? (
           <p className="text-[12px]">
-            <span className="text-yellow-500">100</span> Likes
+            <span className="text-yellow-500">{likes}</span> Likes
           </p>
         ) : null}
       </div>
@@ -82,11 +88,26 @@ const Header = () => {
         </div>
       ) : (
         <div className="flex gap-4">
-          <Button variant="outline" className="border-white ">
-            <span className="text-yellow-500">100</span> Likes
+          <Button variant="outline" className="border-white" onClick={onLike}>
+            {isLoading ? (
+              <div className="border h-[20px] w-[20px] border-t-white rounded-full animate-spin"></div>
+            ) : (
+              <>
+                <span className="text-yellow-500">{likes} </span>
+                <span>Likes</span>
+              </>
+            )}
           </Button>
-          <Button variant="outline" className="border-red-900" onClick={onLogout}>
-            {isLoading ? <div className="border h-[20px] w-[20px] border-t-white rounded-full animate-spin"></div> : "Log out"}
+          <Button
+            variant="outline"
+            className="border-red-900"
+            onClick={onLogout}
+          >
+            {isLoading ? (
+              <div className="border h-[20px] w-[20px] border-t-white rounded-full animate-spin"></div>
+            ) : (
+              "Log out"
+            )}
           </Button>
         </div>
       )}

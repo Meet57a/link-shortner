@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const UserModel = require('../models/user-model');
 const ProfileModel = require('../models/profile-model');
+const LikesModel = require('../models/likes-model');
 const { tokenGenerate, verifyToken } = require('../utils/token-utils');
 
 exports.signUpService = async (body) => {
@@ -76,15 +77,15 @@ exports.sessionService = async (token) => {
                 return { status: true, msg: "User session active.", statusCode: 200, data: { user: { name: user.name, email: user.email, _id: user._id }, token: token } };
             } else {
                 await ProfileModel.updateOne({ token: token }, { token: '' });
-                return { status: false, msg: "User session expired.", statusCode: 401 };
+                return { status: false, msg: "User session expired.", statusCode: 401, data: { user: { name: "", email: "", _id: "" } } };
             }
         } else {
-            return { status: false, msg: "User session not found.", statusCode: 404 };
+            return { status: false, msg: "User session not found.", statusCode: 404, data: { user: { name: "", email: "", _id: "" } } };
         }
 
     } catch (error) {
         console.log(error);
-        return { status: false, msg: error, statusCode: 500 };
+        return { status: false, msg: error, statusCode: 500, data: { user: { name: "", email: "", _id: "" } } };
     }
 }
 
@@ -100,5 +101,29 @@ exports.signOutService = async (token) => {
         console.log(error);
         return { status: false, msg: error, statusCode: 500 };
 
+    }
+}
+
+exports.likesService = async (token) => {
+    try {
+        const verifedtoken = await verifyToken(token);  
+        const exsist = await LikesModel.findOne({ user: verifedtoken.userid });
+        const profile = await ProfileModel.findOne({ token });
+
+        if (exsist) {
+            return { status: false, msg: "You Already liked it.", statusCode: 404 };
+        } else {
+            if (profile !== null && profile) {
+                const user = await UserModel.findById(profile.user);
+                const likes = await LikesModel.create({ user: user._id });
+                const likesCount = (await LikesModel.find()).length;
+                return { status: true, msg: "You Liked It.", statusCode: 200, data: { likes: likesCount } };
+            } else {
+                return { status: false, msg: "User session not found.", statusCode: 404 };
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        return { status: false, msg: error, statusCode: 500 };
     }
 }

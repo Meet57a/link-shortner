@@ -6,8 +6,9 @@ import {
   getSession,
   setUser,
   logout,
+  likeService,
 } from "@/services/auth-services";
-import LocalStore from "@/lib/local-store";
+import LocalStore, { LocalStoreClear } from "@/lib/local-store";
 
 const initialState: {
   isLoading: boolean;
@@ -105,6 +106,7 @@ const authSlice = createSlice({
         state.user = action.payload.data.user;
         state.token = action.payload.data.token;
         state.data = action.payload;
+
         if (state.user) {
           if (action.payload.status === true) {
             state.user.isAuthenticated = true;
@@ -138,14 +140,24 @@ const authSlice = createSlice({
         if (state.data.status === true) {
           state.user = { _id: "", email: "", isAuthenticated: false, name: "" };
           state.token = "";
-          LocalStore(
-            { _id: "", email: "", isAuthenticated: false, name: "" },
-            ""
-          );
+          LocalStoreClear();
         }
         state.isLoading = false;
       })
       .addCase(logout.rejected, (state) => {
+        state.isLoading = false;
+      });
+
+    // likeService builder
+    builder
+      .addCase(likeService.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(likeService.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(likeService.rejected, (state) => {
         state.isLoading = false;
       });
   },

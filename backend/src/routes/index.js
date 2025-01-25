@@ -5,7 +5,10 @@ const routes = [
         path: '/auth',
         router: require('./auth-routes')
     },
-
+    {
+        path: '/fetch',
+        router: require('./fetch-routes')
+    },
 ];
 
 routes.forEach((route) => {

@@ -8,7 +8,7 @@ exports.authMiddleware = async (req, res, next) => {
         const tokenSplited = token.split(' ')[1];
 
         console.log(tokenSplited);
-        
+
 
         if (token !== null) {
             const result = verifyToken(tokenSplited);
@@ -21,22 +21,22 @@ exports.authMiddleware = async (req, res, next) => {
                         req.user = user;
                         next();
                     } else {
-                        res.status(404).json({ status: false, msg: 'User not found', statusCode: 404 });
+                        res.status(404).json({ status: false, msg: 'User not found', statusCode: 404, data: { user: { name: "", email: "", _id: "" } } });
                     }
                 } else {
-                    res.status(404).json({ status: false, msg: 'Profile not found', statusCode: 404 });
+                    res.status(404).json({ status: false, msg: 'Profile not found', statusCode: 404, data: { user: { name: "", email: "", _id: "" } } });
                 }
             } else {
-                res.status(401).json({ status: false, msg: 'Unauthorized', statusCode: 401 });
+                res.status(401).json({ status: false, msg: 'Unauthorized', statusCode: 401, data: { user: { name: "", email: "", _id: "" } } });
             }
         } else {
-            res.status(400).json({ status: false, msg: 'Invalid request', statusCode: 400 });
+            res.status(400).json({ status: false, msg: 'Invalid request', statusCode: 400, data: { user: { name: "", email: "", _id: "" } } });
         }
     } catch (error) {
-        if(error.message === "jwt expired"){
-            return res.status(401).json({ status: false, msg: 'Unauthorized', statusCode: 401 });
+        if (error.message === "jwt expired") {
+            return res.status(401).json({ status: false, msg: 'Unauthorized', statusCode: 401, data: { user: { name: "", email: "", _id: "" } } });
         }
         console.log(error);
-        res.status(500).json({ status: false, msg: error, statusCode: 500 });
+        res.status(500).json({ status: false, msg: error, statusCode: 500, data: { user: { name: "", email: "", _id: "" } } });
     }
 }

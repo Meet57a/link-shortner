@@ -27,7 +27,7 @@ export const login = createAsyncThunk("auth/login", async (data: any) => {
 });
 
 export const getSession = createAsyncThunk("auth/getSession", async () => {
-  console.log("dndnkjdvn");
+
 
   const token = localStorage.getItem("token");
   const response = await fetch(import.meta.env.VITE_URL + "/auth/session", {
@@ -52,5 +52,16 @@ export const logout = createAsyncThunk("auth/logout", async () => {
       Authorization: `Bearer ${token}`,
     },
   });
+  return response.json();
+});
+
+export const likeService = createAsyncThunk("likes/likeService", async () => {
+  const token = localStorage.getItem("token");
+  const response = await fetch(import.meta.env.VITE_URL + "/auth/likes", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });      
   return response.json();
 });

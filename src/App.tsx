@@ -1,4 +1,4 @@
-import { RouterProvider } from "react-router-dom";
+import { data, RouterProvider } from "react-router-dom";
 import "./App.css";
 import routes from "./lib/routes";
 import { Toaster } from "./components/ui/toaster";
@@ -7,71 +7,59 @@ import { AppDispatch, RootState } from "./providers/store";
 import { useEffect } from "react";
 import { useToast } from "./hooks/use-toast";
 import { getSession, setUser } from "./services/auth-services";
-import AuthType from "./types/auth-type";
+import { fetchLikes, setLikes } from "./services/fetch-service";
 
 function App() {
   const { toast } = useToast();
-  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
-  var data = useSelector((state: RootState) => state.auth.data);
-  var user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch<AppDispatch>();
+  const { user, data, isLoading } = useSelector(
+    (state: RootState) => state.auth
+  );
 
-  const ses = async () => {
-    var date = new Date();
-    const expiresIn = localStorage.getItem("expiresIn");
-    if (expiresIn && date.getMinutes() > Number(expiresIn)) {
-      localStorage.setItem("expiresIn", (date.getMinutes() + 20).toString());
-      await dispatch(getSession());
+  const sessionHandler = async () => {
+    const date = new Date();
+    const expireIn = Number(localStorage.getItem("expireIn"));
+    const token = localStorage.getItem("token");
+
+    if (date.getMinutes() > expireIn && token) {
+      localStorage.setItem("expireIn", ((date.getMinutes() + 20) % 60).toString());
+      dispatch(getSession());
+      dispatch(fetchLikes());
+      dispatch(setUser());
+    } else {
+      dispatch(setUser());
+      dispatch(setLikes());
+      dispatch(fetchLikes());
+
     }
   };
 
   useEffect(() => {
-    ses();
-    dispatch(setUser());
-  }, [dispatch]);
-
+    sessionHandler();
+  }, []);
+ 
   useEffect(() => {
-    (async () => {
-      if (isLoading) {
+    if (isLoading) {
+      toast({
+        title: "Loading",
+        description: "Please wait...",
+      });
+    }
+    if (data) {
+      if (data.statusCode === 200) {
         toast({
-          title: "Getting session",
-          description: "Please wait...",
+          title: "Success",
+          description: data.msg,
         });
-        data = null;
+      } else {
+        toast({
+          title: "Error",
+          description: data.msg,
+        });
       }
-      if (data != null && !isLoading) {
-        if (data.statusCode === 200) {
-          toast({
-            title: "Success",
-            description: data.msg,
-          });
-        } else {
-          toast({
-            title: "Error",
-            description: data.msg,
-          });
-        }
-      }
-    })();
-  }, [isLoading]);
+    }
+  }, [data, isLoading]);
 
-  useEffect(() => {
-    (async () => {
-      if (data != null) {
-        if (data.statusCode === 200) {
-          toast({
-            title: "Success",
-            description: data.msg,
-          });
-        } else {
-          toast({
-            title: "Error",
-            description: data.msg,
-          });
-        }
-      }
-    })();
-  }, [data]);
   return (
     <>
       <RouterProvider router={routes} />
