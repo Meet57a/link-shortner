@@ -30,7 +30,6 @@ function App() {
       dispatch(setUser());
       dispatch(setLikes());
       dispatch(fetchLikes());
-
     }
   };
 

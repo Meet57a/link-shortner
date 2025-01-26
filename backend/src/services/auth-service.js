@@ -85,7 +85,7 @@ exports.sessionService = async (token) => {
 
     } catch (error) {
         console.log(error);
-        return { status: false, msg: error, statusCode: 500, data: { user: { name: "", email: "", _id: "" } } };
+        return { status: false, msg: error.message, statusCode: 500, data: { user: { name: "", email: "", _id: "" } } };
     }
 }
 

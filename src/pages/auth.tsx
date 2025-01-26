@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, signup } from "@/services/auth-services";
 import { useToast } from "@/hooks/use-toast";
 import { fetchLikes } from "@/services/fetch-service";
+import { useLocation } from "react-router-dom";
 
 const formSchema = z.object({
   name: z.string().min(3).max(50),
@@ -29,8 +30,11 @@ const formSchema = z.object({
 
 const AuthPage = () => {
   const { toast } = useToast();
+  const location = useLocation();
   type auth = "signin" | "signup";
   const [authType, setAuthType] = useState<auth>("signin");
+
+  const [openDialog, setOpenDialog] = useState(false);
 
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   var data = useSelector((state: RootState) => state.auth.data);
@@ -45,6 +49,8 @@ const AuthPage = () => {
       confirmPassword: "",
     },
   });
+
+ 
 
   const onSubmit = async (
     e: React.FormEvent<HTMLFormElement> | React.FormEvent<HTMLButtonElement>,
@@ -84,10 +90,15 @@ const AuthPage = () => {
     })();
   }, [data]);
 
+  
+
   return (
-    <Dialog>
+    <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       {/*  DialogTrigger */}
-      <DialogTrigger className="border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 rounded-md px-8 rounded-md">
+      <DialogTrigger
+        className="border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 rounded-md px-8 rounded-md"
+        onClick={() => setOpenDialog(true)}
+      >
         Login / Signup
       </DialogTrigger>
 

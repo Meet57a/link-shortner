@@ -113,10 +113,7 @@ const authSlice = createSlice({
             LocalStore(action.payload.data.user, action.payload.data.token);
           } else {
             state.user.isAuthenticated = false;
-            LocalStore(
-              { _id: "", email: "", isAuthenticated: false, name: "" },
-              ""
-            );
+            LocalStoreClear();
           }
         }
         state.isLoading = false;

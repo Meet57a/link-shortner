@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import AuthPage from "@/pages/auth";
@@ -11,6 +11,7 @@ import { fetchLikes } from "@/services/fetch-service";
 
 const Header = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const location = useLocation();
   const locationActive = location.pathname;
@@ -39,6 +40,9 @@ const Header = () => {
             description: data.msg,
           });
           dispatch(fetchLikes());
+          if (data.msg === "User session closed.") {
+            navigate("/");
+          }
         } else {
           toast({
             title: "Error",
@@ -63,14 +67,27 @@ const Header = () => {
         ) : null}
       </div>
       <div className="flex gap-6">
-        <Link
-          to="/"
-          className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${
-            locationActive === "/" ? "after:scale-x-100" : "after:scale-x-0"
-          } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
-        >
-          Home
-        </Link>
+        {user ? (
+          <Link
+            to="/dashboard"
+            className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${
+              locationActive === "/dashboard"
+                ? "after:scale-x-100"
+                : "after:scale-x-0"
+            } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
+          >
+            Dashboard
+          </Link>
+        ) : (
+          <Link
+            to="/"
+            className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${
+              locationActive === "/" ? "after:scale-x-100" : "after:scale-x-0"
+            } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
+          >
+            Home
+          </Link>
+        )}
         <Link
           to="/about"
           className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${
