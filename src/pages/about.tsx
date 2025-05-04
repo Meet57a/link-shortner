@@ -21,6 +21,7 @@ const formSchema = z.object({
     name: z.string().min(3).max(50),
     email: z.string().email(),
     msg: z.string().min(6).max(100),
+    access_key: z.string().optional(),
 });
 
 
@@ -31,12 +32,35 @@ const About = () => {
             name: "",
             email: "",
             msg: "",
+            access_key: "bda9a88d-afc0-4a36-a003-eeddfcdc8d73",
         },
     });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
-    }
+    const [result, setResult] = React.useState("");
+
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+
+        setResult("Sending....");
+
+
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            setResult("Form Submitted Successfully");
+            form.reset();
+        } else {
+            console.log("Error", data);
+            setResult(data.message);
+        }
+    };
 
     return (
         <div className=" border-2 bg-gray-900 mx-4 p-4 rounded-[10px]">
@@ -91,7 +115,9 @@ const About = () => {
                                 <Button type="submit">
                                     Submit
                                 </Button>
-
+                                {
+                                    result && <p className='text-muted-foreground'>{result}</p>
+                                }
                             </div>
                         </form>
                     </Form>
@@ -109,7 +135,7 @@ const About = () => {
                     }}>meetsenjali2018@gmail.com</span>
 
 
-                    
+
 
                 </div>
             </div>

@@ -3,8 +3,7 @@ const { signUpService, signInService, sessionService, signOutService,likesServic
 exports.signUp = async (req, res) => {
     try {
         const body = req.body;
-        console.log(body);
-
+   
         if (body !== null) {
             const result = await signUpService(body);
             res.status(result.statusCode).json(result);
