@@ -32,7 +32,7 @@ const LandingPage = () => {
     <div className="flex flex-col items-center justify-center pt-20">
       <h1 className="text-4xl font-bold">
         <span className="text-yellow-500">Shorten Links,</span> Simplify
-        Sharing!
+        Sharing!      
       </h1>
       <p className="mt-2">
         Create short links and share them with your friends and family.
@@ -48,7 +48,7 @@ const LandingPage = () => {
           value={longUrl}
           onChange={(e) => setLongUrl(e.target.value)}
         />
-        <Button className="mt-4 w-[150px] bg-yellow-5 00">Shorten</Button>
+        <Button className="mt-4 w-[150px] bg-yellow-500">Shorten</Button>
       </form>
     </div>
   );

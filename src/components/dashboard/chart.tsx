@@ -17,27 +17,23 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
+
+
+
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  createdLinks: {
+    label: "Created Links",
     color: "hsl(var(--chart-1))",
   },
-  mobile: {
-    label: "Mobile",
+  clicks: {
+    label: "Clicks",
     color: "hsl(var(--chart-2))",
   },
+
 } satisfies ChartConfig;
 
-export function Chart() {
+export function Chart(data: any) {
   return (
     <Card>
       <CardHeader>
@@ -50,7 +46,7 @@ export function Chart() {
         <ChartContainer config={chartConfig}>
           <AreaChart
             accessibilityLayer
-            data={chartData}
+            data={data.length}
             margin={{
               left: 12,
               right: 12,
@@ -69,7 +65,7 @@ export function Chart() {
               content={<ChartTooltipContent indicator="dot" />}
             />
             <Area
-              dataKey="mobile"
+              dataKey="createdLinks"
               type="natural"
               fill="var(--color-mobile)"
               fillOpacity={0.4}
@@ -77,7 +73,7 @@ export function Chart() {
               stackId="a"
             />
             <Area
-              dataKey="desktop"
+              dataKey="clicks"
               type="natural"
               fill="var(--color-desktop)"
               fillOpacity={0.4}

@@ -106,7 +106,7 @@ exports.signOutService = async (token) => {
 
 exports.likesService = async (token) => {
     try {
-        const verifedtoken = await verifyToken(token);  
+        const verifedtoken = await verifyToken(token);
         const exsist = await LikesModel.findOne({ user: verifedtoken.userid });
         const profile = await ProfileModel.findOne({ token });
 

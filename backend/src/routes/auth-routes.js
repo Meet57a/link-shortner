@@ -7,7 +7,7 @@ const { authMiddleware } = require('../middleware/authentication');
 router.post('/sign-up', Validation.validateSignUpForm, signUp);
 router.post('/sign-in', Validation.validateSignInForm, signIn);
 router.get('/session', session)
-router.get('/sign-out', authMiddleware, signOut);
+router.get('/sign-out', signOut);
 router.get('/likes', authMiddleware, likes);
 
 module.exports = router;

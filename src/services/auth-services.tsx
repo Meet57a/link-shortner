@@ -12,7 +12,7 @@ export const signup = createAsyncThunk("auth/signup", async (data: any) => {
     },
     body: JSON.stringify(data),
   });
-  return response.json();
+  return response.json(); 
 });
 
 export const login = createAsyncThunk("auth/login", async (data: any) => {

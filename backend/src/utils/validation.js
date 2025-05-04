@@ -35,6 +35,34 @@ class Validation {
 
         next();
     }
+
+    static validateUrlForm = (req, res, next) => {
+        const { title, longUrl, customUrl } = req.body;
+        var urlFormat = /^(ftp|http|https):\/\/[^ "]+$/;
+
+        if (!title || !longUrl) {
+            return res.status(400).json({ status: false, msg: 'All fields are required', statusCode: 400 });
+        }
+
+        else if (!longUrl.match(urlFormat)) {
+            return res.status(400).json({ status: false, msg: 'Invalid URL', statusCode: 400 });
+        }
+
+        next();
+    }
+
+    static validateClickUrlForm = (req, res, next) => {
+        console.log(req.body);
+        
+        const { shortUrl } = req.body;
+        console.log(shortUrl);
+        
+        if (!shortUrl) {
+            return res.status(400).json({ status: false, msg: 'Invalid Short Url', statusCode: 400 });
+        }
+
+        next();
+    }
 }
 
 

@@ -125,6 +125,9 @@ const authSlice = createSlice({
     // setUser builder
     builder.addCase(setUser.fulfilled, (state, action) => {
       state.user = action.payload;
+      if (!state.user) {
+        state.user = { _id: "", email: "", isAuthenticated: false, name: "" };
+      }
     });
 
     // logout builder

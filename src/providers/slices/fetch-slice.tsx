@@ -1,15 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchLikes, setLikes } from "@/services/fetch-service";
+import { fetchLikes, setLikes, fetchLongUrl } from "@/services/fetch-service";
 import { LocalStoreLikes } from "@/lib/local-store";
+import { fetchUrl } from "@/services/url-services";
+import UrlType from "@/types/url-type";
 
 const initialState: {
   isLoading: boolean;
-  data: any;
+  fetcnLikesData: any;
   likes: number;
+
+  lognUrlfetchData: any;
 } = {
   isLoading: false,
-  data: null,
+  fetcnLikesData: null,
   likes: 0,
+ 
+  lognUrlfetchData: null,
 };
 
 const fetchSlice = createSlice({
@@ -22,7 +28,7 @@ const fetchSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchLikes.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.fetcnLikesData = action.payload;
         state.likes = action.payload.likes;
         LocalStoreLikes(action.payload.likes);
         state.isLoading = false;
@@ -33,6 +39,17 @@ const fetchSlice = createSlice({
     builder.addCase(setLikes.fulfilled, (state, action) => {
       state.likes = Number(action.payload);
     });
+
+    builder.addCase(fetchLongUrl.pending, (state) => {
+      state.isLoading = true;
+    })
+      .addCase(fetchLongUrl.fulfilled, (state, action) => {
+        state.lognUrlfetchData = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchLongUrl.rejected, (state) => {
+        state.isLoading = false;
+      });
   },
 });
 

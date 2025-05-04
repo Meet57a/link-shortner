@@ -1,4 +1,6 @@
-const router = require('express').Router();
+const path = require('path');
+
+const router = require('express').Router(); 
 
 const routes = [
     {
@@ -9,6 +11,10 @@ const routes = [
         path: '/fetch',
         router: require('./fetch-routes')
     },
+    {
+        path: '/url',
+        router: require('./url-routes')
+    }
 ];
 
 routes.forEach((route) => {

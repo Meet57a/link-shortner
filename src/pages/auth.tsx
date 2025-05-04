@@ -49,8 +49,8 @@ const AuthPage = () => {
       confirmPassword: "",
     },
   });
+  
 
- 
 
   const onSubmit = async (
     e: React.FormEvent<HTMLFormElement> | React.FormEvent<HTMLButtonElement>,
@@ -90,7 +90,7 @@ const AuthPage = () => {
     })();
   }, [data]);
 
-  
+
 
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>

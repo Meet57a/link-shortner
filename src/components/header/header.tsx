@@ -55,80 +55,97 @@ const Header = () => {
   }, [data]);
 
   return (
-    <div className="text-white p-4 flex justify-between items-center">
-      <div>
-        <Link to="/" className="text-[20px]">
-          Link <span className="text-yellow-500">Shortner</span>
-        </Link>
-        {!user ? (
-          <p className="text-[12px]">
-            <span className="text-yellow-500">{likes}</span> Likes
-          </p>
-        ) : null}
-      </div>
-      <div className="flex gap-6">
-        {user ? (
-          <Link
-            to="/dashboard"
-            className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${
-              locationActive === "/dashboard"
+    <>
+      <div className="h-14"></div>
+      <div className="text-white py-2 px-4 flex justify-between items-center fixed top-0 left-0 right-0 bg-gray-900 z-50">
+        <div>
+          <Link to="/" className="text-[20px]">
+            Link <span className="text-yellow-500">Shortner</span>
+          </Link>
+          {!user ? (
+            <p className="text-[12px]">
+              <span className="text-yellow-500">{likes}</span> Likes
+            </p>
+          ) : null}
+        </div>
+        <div className="flex gap-6">
+          {user ? (
+            <Link
+              to="/dashboard"
+              className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/dashboard"
                 ? "after:scale-x-100"
                 : "after:scale-x-0"
-            } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
-          >
-            Dashboard
-          </Link>
-        ) : (
+                } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <Link
+              to="/"
+              className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/" ? "after:scale-x-100" : "after:scale-x-0"
+                } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
+            >
+              Home
+            </Link>
+          )}
+          {
+            user ? (
+              <Link
+                to="/linkscollection"
+                className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/linkscollection"
+                  ? "after:scale-x-100"
+                  : "after:scale-x-0"
+                  } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
+              >
+                Links
+              </Link>
+            ) : null
+          }
           <Link
-            to="/"
-            className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${
-              locationActive === "/" ? "after:scale-x-100" : "after:scale-x-0"
-            } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
-          >
-            Home
-          </Link>
-        )}
-        <Link
-          to="/about"
-          className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${
-            locationActive === "/about"
+            to="/about"
+            className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/about"
               ? "after:scale-x-100"
               : "after:scale-x-0"
-          } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
-        >
-          About
-        </Link>
-      </div>
-      {!user ? (
-        <div className="flex gap-4">
-          <AuthPage />
-        </div>
-      ) : (
-        <div className="flex gap-4">
-          <Button variant="outline" className="border-white" onClick={onLike}>
-            {isLoading ? (
-              <div className="border h-[20px] w-[20px] border-t-white rounded-full animate-spin"></div>
-            ) : (
-              <>
-                <span className="text-yellow-500">{likes} </span>
-                <span>Likes</span>
-              </>
-            )}
-          </Button>
-          <Button
-            variant="outline"
-            className="border-red-900"
-            onClick={onLogout}
+              } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
           >
-            {isLoading ? (
-              <div className="border h-[20px] w-[20px] border-t-white rounded-full animate-spin"></div>
-            ) : (
-              "Log out"
-            )}
-          </Button>
+            About
+          </Link>
         </div>
-      )}
-    </div>
+        {!user ? (
+          <div className="flex gap-4">
+            <AuthPage />
+          </div>
+        ) : (
+          <div className="flex gap-4">
+            <Button variant="outline" className="border-white" onClick={onLike}>
+              {isLoading ? (
+                <div className="border h-[20px] w-[20px] border-t-white rounded-full animate-spin"></div>
+              ) : (
+                <>
+                  <span className="text-yellow-500">{likes} </span>
+                  <span>Likes</span>
+                </>
+              )}
+            </Button>
+            <Button
+              variant="outline"
+              className="border-red-900"
+              onClick={onLogout}
+            >
+              {isLoading ? (
+                <div className="border h-[20px] w-[20px] border-t-white rounded-full animate-spin"></div>
+              ) : (
+                "Log out"
+              )}
+            </Button>
+          </div>
+        )}
+      </div>
+      <div className="text-center mt-2 mb-2 text-sm text-gray-500">
+       Note : If data is not showing, please refresh the page.
+      </div>
+    </>
+
   );
 };
 

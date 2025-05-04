@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const dbConfig = {
     url: process.env.MONGOOSEURL + process.env.DATABASENAME,
-    
 }
 
 const connect = async () => {
@@ -14,6 +13,7 @@ const connect = async () => {
         process.exit(1);
     }
 }
+
 
 
 module.exports = connect;
