@@ -65,8 +65,8 @@ const About = () => {
     return (
         <div className=" border-2 bg-gray-900 mx-4 p-4 rounded-[10px]">
             <h1 className='text-2xl'>About Us</h1>
-            <div className='flex gap-2'>
-                <div className='bg-background rounded-[10px] border-2 border-gray-800 w-1/2 p-4'>
+            <div className='flex gap-2 max-sm:flex-col'>
+                <div className='bg-background rounded-[10px] border-2 border-gray-800 w-1/2 p-4 max-sm:w-full'>
                     <h1 className='mb-2'>Contact Us Form</h1>
                     <p className='text-muted-foreground mb-2'>We are here to help you with any questions or concerns you may have. Please fill out the form below and we will get back to you as soon as possible.</p>
                     <Form {...form}>
@@ -122,16 +122,16 @@ const About = () => {
                         </form>
                     </Form>
                 </div>
-                <div className='bg-background rounded-[10px] border-2 border-gray-800 w-1/2 p-4'>
+                <div className='bg-background rounded-[10px] border-2 border-gray-800 w-1/2 p-4 max-sm:w-full'>
                     <h1 className='mb-2'>About Us</h1>
                     <p className='text-muted-foreground mb-2'>We are a team of developers who are passionate about creating tools that make your life easier. Our goal is to provide you with the best experience possible.</p>
                     <p className='text-muted-foreground mb-2'>We are constantly working to improve our tools and add new features. If you have any suggestions or feedback, please feel free to reach out to us.</p>
                     <p className='text-muted-foreground mb-2'>Thank you for using our tools and we hope you enjoy them!</p>
                     <p className='text-muted-foreground mb-2'>If you have any questions or concerns, please feel free to reach out to us at </p>
                     <Mail className='mr-2 inline cursor-pointer' onClick={() => {
-                        window.location.href = "mailto:meetsenjali2018@gmail.com"
+                        window.location.href = "mailto:meetsenjaliya9048@gmail.com"
                     }} size={20} color="white" /> <span className='text-blue-500 underline cursor-pointer' onClick={() => {
-                        window.location.href = "mailto:meetsenjali2018@gmail.com"
+                        window.location.href = "mailto:meetsenjaliya9048@gmail.com"
                     }}>meetsenjali2018@gmail.com</span>
 
 

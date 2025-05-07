@@ -84,7 +84,7 @@ const CreateUrl = () => {
             <DialogTrigger asChild>
                 <Button className="bg-yellow-500">Create Link</Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="max-sm:w-[350px] rounded-xl">
                 <DialogHeader>
                     <DialogTitle className="">Create Link</DialogTitle>
                 </DialogHeader>

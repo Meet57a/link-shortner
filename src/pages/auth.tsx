@@ -96,14 +96,14 @@ const AuthPage = () => {
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       {/*  DialogTrigger */}
       <DialogTrigger
-        className="border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 rounded-md px-8 rounded-md"
+        className="border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10  px-8 rounded-md"
         onClick={() => setOpenDialog(true)}
       >
         Login / Signup
       </DialogTrigger>
 
       {/* DialogContent */}
-      <DialogContent className="w-[400px]">
+      <DialogContent className="w-[400px] max-sm:w-[350px] rounded-xl">
         {/* Tabs */}
         <Tabs defaultValue={authType} className="">
           {/* TabsList */}

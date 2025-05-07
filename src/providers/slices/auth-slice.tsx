@@ -141,6 +141,10 @@ const authSlice = createSlice({
           state.user = { _id: "", email: "", isAuthenticated: false, name: "" };
           state.token = "";
           LocalStoreClear();
+        } else if (state.data.status === false) {
+          state.user = { _id: "", email: "", isAuthenticated: false, name: "" };
+          state.token = "";
+          LocalStoreClear();
         }
         state.isLoading = false;
       })

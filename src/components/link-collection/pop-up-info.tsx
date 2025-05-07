@@ -105,12 +105,12 @@ const PopUpInfo = (item: UrlType) => {
                         <h1 className="">{item.title}</h1>
                     </div>
                     <div className='flex justify-between items-center'>
-                        <Link to='/' className='text-xl text-left text-blue-500 underline w-3/4 hover:text-yellow-500'>{import.meta.env.VITE_DOMAIN + item.shortUrl}</Link>
+                        <Link to={import.meta.env.VITE_DOMAIN + item.shortUrl} className='text-xl text-left text-blue-500 underline w-3/4 hover:text-yellow-500 truncate'>{import.meta.env.VITE_DOMAIN + item.shortUrl}</Link>
                         <ArrowRight size={24} />
                     </div>
 
                     <div className='flex justify-between items-center mt-4'>
-                        <div className='text-muted-foreground'>{item.currentTime}</div>
+                        <div className='text-muted-foreground'>{item.currentTime.substring(0,5)}</div>
                         <div className='text-muted-foreground'>{item.currentDate}</div>
                     </div>
                 </DialogTrigger>
@@ -127,17 +127,17 @@ const PopUpInfo = (item: UrlType) => {
                     </div>
                 </div>
             </div>
-            <DialogContent className="max-w-3xl">
+            <DialogContent className="max-w-3xl rounded-xl">
                 <DialogHeader>
                     <DialogTitle className="">Link Info</DialogTitle>
                 </DialogHeader>
-                <DialogDescription>
-                    <div className="flex text-white gap-4 ">
+                <DialogDescription className="">
+                    <div className="flex text-white gap-4 max-sm:flex-col max-sm:items-center">
                         <div className="h-52 w-52 bg-gray-600"></div>
                         <div className="flex flex-col gap-2">
                             <div className="flex flex-col gap-2">
                                 <span className="flex gap-4 items-center">
-                                    <Link className="text-2xl underline text-blue-500" to={import.meta.env.VITE_DOMAIN + item.shortUrl}>{import.meta.env.VITE_DOMAIN + item.shortUrl}</Link>
+                                    <Link className="text-2xl underline text-blue-500 truncate" to={import.meta.env.VITE_DOMAIN + item.shortUrl}>{import.meta.env.VITE_DOMAIN + item.shortUrl}</Link>
                                     <Copy size={20} className="text-blue-400 cursor-pointer hover:text-yellow-500" onClick={
                                         () => {
                                             copy(import.meta.env.VITE_DOMAIN + item.shortUrl)
@@ -145,7 +145,7 @@ const PopUpInfo = (item: UrlType) => {
                                     } />
                                 </span>
                                 <span>Title : {item.title}</span>
-                                <span className="flex ">Long URL : <Link to={'/'} className="underline text-blue-500 mr-4 ml-1">{item.longUrl}</Link><Copy size={20} className="text-blue-400 cursor-pointer hover:text-yellow-500" onClick={
+                                <span className="flex">Long URL : <Link to={item.longUrl} className="underline truncate text-blue-500 mr-4 ml-1">{item.longUrl}</Link><Copy size={20} className="text-blue-400 cursor-pointer hover:text-yellow-500" onClick={
                                     () => {
                                         copy(item.longUrl)
                                     }
@@ -156,9 +156,9 @@ const PopUpInfo = (item: UrlType) => {
                                 <span>Clicks : {item.clicks}</span>
                             </div>
                             <div className="flex justify-between items-center mt-4">
-                                <div className="text-muted-foreground">{item.currentTime}</div>
+                                <div className="text-muted-foreground">{item.currentTime.substring(0,5)}</div>
                                 <div className="text-muted-foreground">{item.currentDate}</div>
-                            </div>
+                            </div>  
 
 
                         </div>

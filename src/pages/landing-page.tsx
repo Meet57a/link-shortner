@@ -29,7 +29,7 @@ const LandingPage = () => {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center pt-20">
+    <div className="flex flex-col items-center justify-center pt-20 max-sm:px-4">
       <h1 className="text-4xl font-bold">
         <span className="text-yellow-500">Shorten Links,</span> Simplify
         Sharing!      
@@ -39,12 +39,12 @@ const LandingPage = () => {
       </p>
       <form
         action=""
-        className="flex flex-col items-center justify-center"
+        className="flex flex-col items-center justify-center max-sm:w-full"
         onSubmit={handleShorten}
       >
         <Input
           placeholder="Enter your link here"
-          className="w-[600px] h-[50px] mt-10 border-2 border-gray-300"
+          className="h-[50px] mt-10 border-2 border-gray-300 lg:w-[600px] md:w-[600px] sm:w-[600px] max-sm:w-full"
           value={longUrl}
           onChange={(e) => setLongUrl(e.target.value)}
         />

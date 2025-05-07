@@ -14,6 +14,7 @@ import { LocalStoreClear } from "./lib/local-store";
 
 
 function App() {
+  const { toast } = useToast();
   const dispatch = useDispatch<AppDispatch>();
 
 
@@ -35,6 +36,13 @@ function App() {
       const token = localStorage.getItem('token');
       if (token && isTokenExpired(token)) {
         localStorage.removeItem('token');
+
+        toast({
+          title: "Error",
+          description: "Token expired, log in again",
+          variant: "destructive",
+        });
+
         LocalStoreClear();
       } else if (token && !isTokenExpired(token)) {
         dispatch(setUser());
@@ -46,6 +54,11 @@ function App() {
       dispatch(fetchLikes());
       dispatch(setUser());
       dispatch(setLikes());
+      toast({
+        title: "Error",
+        description: "Token expired, log in again",
+        variant: "destructive",
+      });
       LocalStoreClear();
 
     }

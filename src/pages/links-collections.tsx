@@ -39,7 +39,7 @@ const LinksCollections = () => {
                         <p className="mt-2">Create your first link</p>
                     </div>
                 ) : (
-                    <div className='grid grid-cols-3 gap-4 mt-4 cursor-pointer' >
+                    <div className='grid grid-cols-3 max-sm:grid-cols-1 gap-4 mt-4 cursor-pointer' >
                         {data?.map((item, index) => (
                             <PopUpInfo key={index} {...item} />
                         ))}

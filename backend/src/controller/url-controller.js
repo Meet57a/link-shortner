@@ -44,7 +44,8 @@ exports.clickUrl = async (req, res) => {
 
 
         const { country_name, city } = fetch(`https://ipapi.co/${ipAdd}/json/`);
-
+        
+        
 
         if (body !== null) {
             const result = await clickUrlService(body, ipAdd, country_name, city);

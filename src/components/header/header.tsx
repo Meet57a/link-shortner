@@ -72,7 +72,7 @@ const Header = () => {
           {user ? (
             <Link
               to="/dashboard"
-              className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/dashboard"
+              className={`max-sm:hidden relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/dashboard"
                 ? "after:scale-x-100"
                 : "after:scale-x-0"
                 } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
@@ -82,7 +82,7 @@ const Header = () => {
           ) : (
             <Link
               to="/"
-              className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/" ? "after:scale-x-100" : "after:scale-x-0"
+              className={`max-sm:hidden relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/" ? "after:scale-x-100" : "after:scale-x-0"
                 } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
             >
               Home
@@ -92,7 +92,7 @@ const Header = () => {
             user ? (
               <Link
                 to="/linkscollection"
-                className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/linkscollection"
+                className={`max-sm:hidden relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/linkscollection"
                   ? "after:scale-x-100"
                   : "after:scale-x-0"
                   } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
@@ -103,7 +103,7 @@ const Header = () => {
           }
           <Link
             to="/about"
-            className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/about"
+            className={`max-sm:hidden relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/about"
               ? "after:scale-x-100"
               : "after:scale-x-0"
               } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
@@ -141,9 +141,56 @@ const Header = () => {
           </div>
         )}
       </div>
-      <div className="text-center mt-2 mb-2 text-sm text-gray-500">
-       Note : If data is not showing, please refresh the page.
-      </div>
+      {user && <div className="text-center mt-2 mb-2 text-sm text-gray-500">
+        Note : If data is not showing, please refresh the page or logout and login.
+      </div>}
+      {!user && <div className="flex gap-6 mt-6 mb-4 justify-center">
+        <Link
+          to="/"
+          className={`sm:hidden relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/" ? "after:scale-x-100" : "after:scale-x-0"
+            } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
+        >
+          Home
+        </Link>
+        <Link
+          to="/about"
+          className={`sm:hidden relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/about"
+            ? "after:scale-x-100"
+            : "after:scale-x-0"
+            } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
+        >
+          About
+        </Link>
+      </div>}
+      {user && <div className="flex gap-6 mt-4 mb-4 justify-center">
+        <Link
+          to="/dashboard"
+          className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/dashboard"
+            ? "after:scale-x-100"
+            : "after:scale-x-0"
+            } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
+        >
+          Dashboard
+        </Link>
+        <Link
+          to="/linkscollection"
+          className={`relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/linkscollection"
+            ? "after:scale-x-100"
+            : "after:scale-x-0"
+            } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
+        >
+          Links
+        </Link>
+        <Link
+          to="/about"
+          className={`sm:hidden relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-yellow-500 after:w-full ${locationActive === "/about"
+            ? "after:scale-x-100"
+            : "after:scale-x-0"
+            } after:hover:scale-x-100 after:transition after:duration-300 after:origin-left`}
+        >
+          About
+        </Link>
+      </div>}
     </>
 
   );
