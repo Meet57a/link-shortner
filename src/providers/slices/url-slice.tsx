@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createUrl, deleteUrl, clickUrl, fetchUrl } from "@/services/url-services";
-import { Url } from "url";
 import UrlType from "@/types/url-type";
 
 

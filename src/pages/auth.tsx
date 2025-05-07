@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, signup } from "@/services/auth-services";
 import { useToast } from "@/hooks/use-toast";
 import { fetchLikes } from "@/services/fetch-service";
-import { useLocation } from "react-router-dom";
 
 const formSchema = z.object({
   name: z.string().min(3).max(50),
@@ -30,7 +29,6 @@ const formSchema = z.object({
 
 const AuthPage = () => {
   const { toast } = useToast();
-  const location = useLocation();
   type auth = "signin" | "signup";
   const [authType, setAuthType] = useState<auth>("signin");
 

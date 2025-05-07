@@ -1,10 +1,10 @@
-import { data, RouterProvider } from "react-router-dom";
+import {  RouterProvider } from "react-router-dom";
 import "./App.css";
 import routes from "./lib/routes";
 import { Toaster } from "./components/ui/toaster";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./providers/store";
-import { useEffect, useState } from "react";
+import { useDispatch} from "react-redux";
+import { AppDispatch } from "./providers/store";
+import { useEffect } from "react";
 import { useToast } from "./hooks/use-toast";
 import { setUser } from "./services/auth-services";
 import { fetchLikes, setLikes } from "./services/fetch-service";

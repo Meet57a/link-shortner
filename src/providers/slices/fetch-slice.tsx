@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchLikes, setLikes, fetchLongUrl } from "@/services/fetch-service";
 import { LocalStoreLikes } from "@/lib/local-store";
-import { fetchUrl } from "@/services/url-services";
-import UrlType from "@/types/url-type";
 
 const initialState: {
   isLoading: boolean;

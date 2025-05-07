@@ -5,7 +5,7 @@ import AuthPage from "@/pages/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/providers/store";
 import { likeService, logout } from "@/services/auth-services";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { fetchLikes } from "@/services/fetch-service";
 
